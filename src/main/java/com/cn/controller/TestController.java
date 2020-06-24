@@ -14,6 +14,7 @@ public class TestController {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {
+        //用户1把这里给修改了。
         return "hello";
     }
 }
