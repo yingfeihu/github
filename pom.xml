@@ -38,10 +38,37 @@
     </dependencies>
 
     <build>
+        <finalName>github</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.33.0</version>
+                <!--全局配置-->
+                <configuration>
+                    <!--配置远程docker守护进程url-->
+                    <dockerHost>http://192.168.137.4:2375</dockerHost>
+                    <!--认证配置,用于私有registry认证-->
+                    <!--镜像相关配置,支持多镜像-->
+                    <images>
+                        <!-- 单个镜像配置 -->
+                        <image>
+                            <!--镜像名(含版本号)-->
+                            <name>library/${project.name}:${project.version}</name>
+                            <!--registry地址,用于推送,拉取镜像-->
+                            <registry>192.168.137.4</registry>
+                            <!--镜像build相关配置-->
+                            <build>
+                                <!--使用dockerFile文件-->
+                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
             </plugin>
         </plugins>
     </build>
